@@ -186,6 +186,15 @@ config ARCH_MSM8940
 	  This enables support for the MSM8940 chipset. If you do not
 	  wish to build a kernel that runs on this chipset, say 'N' here.
 
+config ARCH_MSM8916
+	bool "Enable Support for Qualcomm MSM8916"
+	depends on ARCH_QCOM
+	select CPU_FREQ_QCOM
+	select COMMON_CLK_MSM
+	help
+	  This enables support for the MSM8916 chipset. If you dont
+	  know what do here, say N
+
 config ARCH_MSM8917
 	bool "Enable Support for Qualcomm Technologies Inc. MSM8917"
 	depends on ARCH_QCOM
