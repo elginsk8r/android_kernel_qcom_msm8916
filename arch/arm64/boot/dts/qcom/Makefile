@@ -1,4 +1,3 @@
-dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc.dtb msm8916-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= msm8996-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-db820c.dtb
 
@@ -597,6 +596,10 @@ dtb-$(CONFIG_ARCH_MSM8917) += msm8917-pmi8950-mtp.dtb \
 dtb-$(CONFIG_ARCH_QM215) += qm215-qrd.dtb \
 	qcm2150-qrd.dtb
 dtb-$(CONFIG_ARCH_QM215) += qm215-qrd-smb1360.dtb
+
+dtb-$(CONFIG_ARCH_MSM8916) += apq8016-mtp.dtb \
+	msm8916-mtp.dtb \
+	msm8916-mtp-smb1360.dtb
 
 dtb-$(CONFIG_ARCH_MSM8909) += msm8909-pm8916-mtp.dtb \
 	sdw3100-msm8909w-wtp.dtb \
