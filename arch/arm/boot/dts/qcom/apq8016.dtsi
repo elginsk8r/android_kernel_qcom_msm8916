@@ -20,14 +20,10 @@
 #include "msm8916-memory.dtsi"
 #include "msm8916-pinctrl.dtsi"
 
-/{
-	memory {
-		modem_adsp_mem: modem_adsp_region@0 {
-			reg = <0x0 0x86800000 0x0 0x02b00000>;
-		};
+&modem_adsp_mem {
+	reg = <0x0 0x86800000 0x0 0x02b00000>;
+};
 
-		peripheral_mem: pheripheral_region@0 {
-			reg = <0x0 0x89300000 0x0 0x0700000>;
-		};
-	};
+&peripheral_mem {
+	reg = <0x0 0x89300000 0x0 0x0700000>;
 };

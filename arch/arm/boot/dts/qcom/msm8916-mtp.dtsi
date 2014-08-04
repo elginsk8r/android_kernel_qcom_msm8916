@@ -12,7 +12,6 @@
 
 #include "msm8916.dtsi"
 #include "msm8916-pinctrl.dtsi"
-#include "msm8916-camera-sensor-mtp.dtsi"
 
 / {
 	aliases {
@@ -365,16 +364,6 @@
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode";
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 	qcom,cont-splash-enabled;
-};
-
-&pmx_mdss {
-	qcom,num-grp-pins = <3>;
-	qcom,pins = <&gp 97>, <&gp 25>, <&gp 98>;
-};
-
-&pmx_mdss_te {
-	qcom,num-grp-pins = <1>;
-	qcom,pins = <&gp 24>;
 };
 
 &mdss_dsi0 {

@@ -10,55 +10,33 @@
  * GNU General Public License for more details.
  */
 
-#include "msm8916-512mb-ion.dtsi"
+#include "msm8916-memory.dtsi"
 
-/ {
-	memory {
-		#address-cells = <2>;
-		#size-cells = <2>;
+&ion {
+	/delete-node/ qcom,ion-heap@8;
+};
 
-		external_image_mem: external_image__region@0 {
-			linux,reserve-contiguous-region;
-			linux,reserve-region;
-			linux,remove-completely;
-			reg = <0x0 0x86000000 0x0 0x0800000>;
-			label = "external_image_mem";
-		};
+&reserved_mem {
+	/delete-node/ mba_mem;
+	/delete-node/ secure_mem;
+};
 
-		modem_adsp_mem: modem_adsp_region@0 {
-			linux,reserve-contiguous-region;
-			linux,reserve-region;
-			linux,remove-completely;
-			reg = <0x0 0x86800000 0x0 0x04800000>;
-			label = "modem_adsp_mem";
-		};
+&external_image_mem {
+	reg = <0x0 0x86000000 0x0 0x0800000>;
+};
 
-		peripheral_mem: pheripheral_region@0 {
-			linux,reserve-contiguous-region;
-			linux,reserve-region;
-			linux,remove-completely;
-			reg = <0x0 0x8b000000 0x0 0x0600000>;
-			label = "peripheral_mem";
-		};
+&modem_adsp_mem {
+	reg = <0x0 0x86800000 0x0 0x04800000>;
+};
 
-		venus_qseecom_mem: venus_qseecom_region@0 {
-			linux,reserve-contiguous-region;
-			linux,memory-limit = <0x90000000>;
-			reg = <0 0 0 0x600000>;
-			label = "venus_qseecom_mem";
-		};
+&peripheral_mem {
+	reg = <0x0 0x8b000000 0x0 0x0600000>;
+};
 
-		audio_mem: audio_region@0 {
-			linux,reserve-contiguous-region;
-			reg = <0 0 0 0x314000>;
-			label = "audio_mem";
-		};
+&venus_qseecom_mem {
+	size = <0 0x600000>;
+};
 
-		cont_splash_mem: splash_region@83000000 {
-			linux,reserve-contiguous-region;
-			linux,reserve-region;
-			reg = <0x0 0x83000000 0x0 0x1200000>;
-			label = "cont_splash_mem";
-		};
-	};
+&cont_splash_mem {
+	reg = <0x0 0x83000000 0x0 0x1200000>;
 };

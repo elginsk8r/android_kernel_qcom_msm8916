@@ -13,6 +13,7 @@
 /dts-v1/;
 
 #include "msm8916-mtp.dtsi"
+#include "msm8916-camera-sensor-mtp.dtsi"
 #include "msm8916-memory.dtsi"
 
 / {
@@ -20,16 +21,14 @@
 	compatible = "qcom,apq8016", "qcom,mtp";
 	qcom,msm-id = <247 0>;
 	qcom,board-id = <8 1>;
+};
 
-	memory {
-		modem_adsp_mem: modem_adsp_region@0 {
-			reg = <0x0 0x86800000 0x0 0x02b00000>;
-		};
+&modem_adsp_mem {
+	reg = <0x0 0x86800000 0x0 0x02b00000>;
+};
 
-		peripheral_mem: pheripheral_region@0 {
-			reg = <0x0 0x89300000 0x0 0x0600000>;
-		};
-	};
+&peripheral_mem {
+	reg = <0x0 0x89300000 0x0 0x0600000>;
 };
 
 &soc {

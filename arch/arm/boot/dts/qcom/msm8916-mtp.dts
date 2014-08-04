@@ -13,6 +13,7 @@
 /dts-v1/;
 
 #include "msm8916-mtp.dtsi"
+#include "msm8916-camera-sensor-mtp.dtsi"
 #include "msm8916-memory.dtsi"
 
 / {
