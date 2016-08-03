@@ -1015,7 +1015,8 @@ static struct rcg_clk cpp_clk_src = {
 };
 
 static struct clk_freq_tbl ftbl_gcc_gp1_3_clk[] = {
-	F(  19200000,	      xo,   1,	  0,	0),
+	F(   150000,    xo,     1,      1,      128),
+	F( 19200000,	xo,	1,	0,	  0),
 	F_END
 };
 
