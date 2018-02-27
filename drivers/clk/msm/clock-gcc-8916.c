@@ -31,6 +31,7 @@
 #include <dt-bindings/clock/msm-clocks-8916.h>
 
 #include "clock.h"
+#include "reset.h"
 
 enum {
 	GCC_BASE,
@@ -2763,6 +2764,12 @@ static struct clk_lookup msm_clocks_lookup[] = {
 	CLK_LIST(gcc_snoc_qosgen_clk),
 };
 
+static const struct msm_reset_map gcc_8916_resets[] = {
+	[GCC_USB_HS_BCR] = {0x41000},
+	[GCC_USB2_HS_PHY_ONLY_BCR] = {0x41034},
+	[GCC_QUSB2_PHY_BCR] = {0x4103C},
+};
+
 #define EFUSE_BASE	0x0005c004
 #define EFUSE_BASE1	0x0005c00c
 
@@ -2891,6 +2898,10 @@ static int msm_gcc_probe(struct platform_device *pdev)
 
 	clk_set_rate(&apss_ahb_clk_src.c, 19200000);
 	clk_prepare_enable(&apss_ahb_clk_src.c);
+
+	msm_reset_controller_register(pdev, gcc_8916_resets,
+					ARRAY_SIZE(gcc_8916_resets),
+					virt_bases[GCC_BASE]);
 
 	dev_info(&pdev->dev, "Registered GCC clocks\n");
 

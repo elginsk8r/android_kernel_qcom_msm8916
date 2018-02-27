@@ -219,5 +219,9 @@
 #define clk_apc3_m_clk				0x78c64486
 #define clk_l2_m_clk				0x4bedf4d0
 
+/* GCC block resets */
+#define GCC_USB_HS_BCR			0
+#define GCC_USB2_HS_PHY_ONLY_BCR	1
+#define GCC_QUSB2_PHY_BCR		2
 
 #endif
