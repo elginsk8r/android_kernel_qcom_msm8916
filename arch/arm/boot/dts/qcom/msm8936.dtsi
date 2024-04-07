@@ -1,4 +1,4 @@
-/* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -178,11 +178,11 @@
 
 	qcom,msm-thermal {
 		qcom,synchronous-cluster-id = <0>;
-		qcom,synchronous-cluster-map = <0 4 &CPU0 &CPU1 &CPU2 &CPU3>;
+		qcom,synchronous-cluster-map = <0 0x0F>;
 	};
 
 	jtag_fuse: jtagfuse@5e01c {
-		compatible = "qcom,jtag-fuse-v2";
+		compatible = "qcom,jtag-fuse";
 		reg = <0x5e01c 0x8>;
 		reg-names = "fuse-base";
 	};

@@ -197,7 +197,8 @@
 				<&dai_mi2s2>, <&dai_mi2s3>, <&sb_0_rx>, <&sb_0_tx>,
 				<&sb_1_rx>, <&sb_1_tx>, <&sb_3_rx>, <&sb_3_tx>,
 				<&sb_4_rx>, <&sb_4_tx>, <&sb_5_tx>, <&bt_sco_rx>,
-				<&bt_sco_tx>, <&int_fm_rx>, <&int_fm_tx>, <&afe_pcm_rx>,
+				<&bt_sco_tx>, <&bt_a2dp_rx>,
+				<&int_fm_rx>, <&int_fm_tx>, <&afe_pcm_rx>,
 				<&afe_pcm_tx>, <&afe_proxy_rx>, <&afe_proxy_tx>,
 				<&incall_record_rx>, <&incall_record_tx>, <&incall_music_rx>,
 				<&incall_music_2_rx>;
@@ -209,11 +210,12 @@
 				"msm-dai-q6-dev.16391", "msm-dai-q6-dev.16392",
 				"msm-dai-q6-dev.16393", "msm-dai-q6-dev.16395",
 				"msm-dai-q6-dev.12288", "msm-dai-q6-dev.12289",
-				"msm-dai-q6-dev.12292", "msm-dai-q6-dev.12293",
-				"msm-dai-q6-dev.224", "msm-dai-q6-dev.225",
-				"msm-dai-q6-dev.241", "msm-dai-q6-dev.240",
-				"msm-dai-q6-dev.32771", "msm-dai-q6-dev.32772",
-				"msm-dai-q6-dev.32773", "msm-dai-q6-dev.32770";
+				"msm-dai-q6-dev.12290", "msm-dai-q6-dev.12292",
+				"msm-dai-q6-dev.12293",	"msm-dai-q6-dev.224",
+				"msm-dai-q6-dev.225", "msm-dai-q6-dev.241",
+				"msm-dai-q6-dev.240", "msm-dai-q6-dev.32771",
+				"msm-dai-q6-dev.32772", "msm-dai-q6-dev.32773",
+				"msm-dai-q6-dev.32770";
 		asoc-codec = <&stub_codec>, <&pm8916_tombak_dig>;
 		asoc-codec-names = "msm-stub-codec.1", "tombak_codec";
 	};
@@ -342,6 +344,14 @@
 	status = "okay";
 };
 
+#include "dsi-panel-jdi-1080p-video.dtsi"
+#include "dsi-panel-nt35590-720p-video.dtsi"
+#include "dsi-panel-nt35590-720p-cmd.dtsi"
+#include "dsi-panel-hx8394d-720p-video.dtsi"
+#include "dsi-panel-sharp-dualmipi0-wqxga-video.dtsi"
+#include "dsi-panel-sharp-dualmipi1-wqxga-video.dtsi"
+#include "dsi-panel-jdi-a216-fhd-video.dtsi"
+
 &mdss_mdp {
 	qcom,mdss-pref-prim-intf = "dsi";
 };
@@ -351,9 +361,9 @@
 	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
 	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
 	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
+	qcom,cont-splash-enabled;
 	qcom,mdss-dsi-pan-enable-dynamic-fps;
-	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode";
 };
 
 &dsi_hx8394d_720_vid {
@@ -361,7 +371,7 @@
 	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
 	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
 	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,cont-splash-enabled;
 };
 
 &dsi_nt35590_720_vid {
@@ -369,10 +379,10 @@
 	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
 	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
 	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
+	qcom,cont-splash-enabled;
 	qcom,esd-check-enabled;
 	qcom,mdss-dsi-pan-enable-dynamic-fps;
-	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode";
 };
 
 &dsi_nt35590_720_cmd {
@@ -380,8 +390,8 @@
 	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
 	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
 	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
+	qcom,cont-splash-enabled;
 	qcom,esd-check-enabled;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 };
 
 &dsi_jdi_a216_fhd_vid {
@@ -389,15 +399,7 @@
 	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
 	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
 	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
-};
-
-&dsi_sharp_1080_cmd {
-	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_pwm";
-	qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
-	qcom,mdss-dsi-bl-pmic-bank-select = <0>;
-	qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,cont-splash-enabled;
 };
 
 &pmx_mdss {
@@ -421,16 +423,18 @@
 	qcom,platform-bklight-en-gpio = <&msm_gpio 98 0>;
 };
 
-&mdss_dsi1 {
-        qcom,lane-map = "lane_map_3210";
-};
-
-&dsi_dual_sharp_video {
+&dsi_dual_sharp_video_0 {
         qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_pwm";
         qcom,mdss-dsi-bl-pmic-pwm-frequency = <100>;
         qcom,mdss-dsi-bl-pmic-bank-select = <0>;
         qcom,mdss-dsi-pwm-gpio = <&pm8916_mpps 4 0>;
-	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,mdss-dsi-lane-map = "lane_map_0123";
+	qcom,cont-splash-enabled;
+};
+
+&dsi_dual_sharp_video_1 {
+        qcom,mdss-dsi-lane-map = "lane_map_3210";
+	qcom,cont-splash-enabled;
 };
 
 &pm8916_mpps {

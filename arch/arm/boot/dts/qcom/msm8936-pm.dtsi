@@ -1,4 +1,4 @@
-/* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -27,6 +27,8 @@
 		qcom,saw2-spm-dly= <0x3c102800>;
 		qcom,saw2-spm-ctl = <0xe>;
 		qcom,saw2-spm-cmd-wfi = [60 03 60 0b 0f];
+		qcom,saw2-spm-cmd-spc = [20 50 1b 10 80 30 90 5b 60 50 03 60
+				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 		qcom,saw2-spm-cmd-pc = [20 50 1b 10 80 30 90 5b 60 50 03 60
 				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 	};
@@ -47,6 +49,8 @@
 		qcom,saw2-spm-dly= <0x3c102800>;
 		qcom,saw2-spm-ctl = <0xe>;
 		qcom,saw2-spm-cmd-wfi = [60 03 60 0b 0f];
+		qcom,saw2-spm-cmd-spc = [20 50 1b 10 80 30 90 5b 60 50 03 60
+				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 		qcom,saw2-spm-cmd-pc = [20 50 1b 10 80 30 90 5b 60 50 03 60
 				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 	};
@@ -67,6 +71,8 @@
 		qcom,saw2-spm-dly= <0x3c102800>;
 		qcom,saw2-spm-ctl = <0xe>;
 		qcom,saw2-spm-cmd-wfi = [60 03 60 0b 0f];
+		qcom,saw2-spm-cmd-spc = [20 50 1b 10 80 30 90 5b 60 50 03 60
+				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 		qcom,saw2-spm-cmd-pc = [20 50 1b 10 80 30 90 5b 60 50 03 60
 				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 	};
@@ -87,6 +93,8 @@
 		qcom,saw2-spm-dly= <0x3c102800>;
 		qcom,saw2-spm-ctl = <0xe>;
 		qcom,saw2-spm-cmd-wfi = [60 03 60 0b 0f];
+		qcom,saw2-spm-cmd-spc = [20 50 1b 10 80 30 90 5b 60 50 03 60
+				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 		qcom,saw2-spm-cmd-pc = [20 50 1b 10 80 30 90 5b 60 50 03 60
 				76 76 0b 50 1b 94 5B 80 10 26 30 50 0f];
 	};
@@ -121,9 +129,8 @@
 		qcom,saw2-spm-ctl = <0xe>;
 		qcom,saw2-pmic-data0 = <0x04030011>;
 		qcom,saw2-pmic-data1 = <0x00030010>;
-		qcom,supports-rpm-hs;
                 qcom,saw2-spm-cmd-ret = [00 03 00 0f];
-                qcom,saw2-spm-cmd-pc = [00 60 50 11 03 70 01 50
+                qcom,saw2-spm-cmd-pc = [00 60 50 11 07 70 01 50
                                 02 62 72 0f];
 	};
 
@@ -361,14 +368,17 @@
 			 <&clock_cpu clk_a53ssmux_cci>;
 	};
 
-	qcom,cpu-sleep-status{
+	qcom,cpu-sleep-status@b088008{
 		compatible = "qcom,cpu-sleep-status";
+		reg = <0xb088008 0x100>;
+		qcom,cpu-alias-addr = <0x10000>;
+		qcom,sleep-status-mask= <0x40000>;
 	};
 
 	qcom,rpm-log@29dc00 {
 		compatible = "qcom,rpm-log";
 		reg = <0x29dc00 0x4000>;
-		qcom,rpm-addr-phys = <0x200000>;
+		qcom,rpm-addr-phys = <0xfc000000>;
 		qcom,offset-version = <4>;
 		qcom,offset-page-buffer-addr = <36>;
 		qcom,offset-log-len = <40>;

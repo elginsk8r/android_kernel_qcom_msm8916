@@ -1,4 +1,4 @@
-/* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -29,6 +29,23 @@
 	chosen {
 		bootargs = "boot_cpus=0,4,5,6,7 sched_enable_hmp=1";
 	};
+
+        firmware: firmware {
+                 android {
+                         compatible = "android,firmware";
+                         fstab {
+                                 compatible = "android,fstab";
+                                 system {
+                                         compatible = "android,system";
+                                         dev = "/dev/block/platform/soc.0/7824900.sdhci/by-name/system";
+                                         type = "ext4";
+                                         mnt_flags = "ro,barrier=1,discard";
+                                         fsmgr_flags = "wait";
+                                         status = "ok";
+                                 };
+                         };
+                 };
+        };
 };
 
 &soc {
@@ -78,7 +95,9 @@
 			<  800000000 9>,
 			<  960000000 12>,
 			< 1113600000 14>,
-			< 1344000000 17>;
+			< 1344000000 17>,
+			< 1459200000 20>,
+			< 1497600000 21>;
 
 		qcom,speed0-bin-v0-cci =
 			<          0 0>,
@@ -219,7 +238,7 @@
 	cci_cache: qcom,cci {
 		compatible = "devfreq-simple-dev";
 		clock-names = "devfreq_clk";
-		clocks = <&clock_cpu clk_cci_clk>;
+		clocks = <&clock_cpu clk_a53ssmux_cci>;
 		governor = "cpufreq";
 		freq-tbl-khz =
 			<  200000 >,
@@ -229,6 +248,7 @@
 	};
 
 	cpubw: qcom,cpubw {
+		label = "cpubw";
 		compatible = "qcom,devbw";
 		governor = "cpufreq";
 		qcom,src-dst-ports = <1 512>;
@@ -243,6 +263,7 @@
 	};
 
 	mincpubw: qcom,mincpubw {
+		label = "mincpubw";
 		compatible = "qcom,devbw";
 		governor = "powersave";
 		qcom,src-dst-ports = <1 512>;
@@ -264,7 +285,7 @@
 			<  345600  2636 >,
 			<  400000  2636 >,
 			<  800000  2636 >,
-			<  960000  5346 >,
+			<  960000  2636 >,
 			<  1113600 5346 >,
 			<  1344000 6079 >,
 			<  1459200 6079 >,
@@ -330,15 +351,15 @@
 		clock-names = "l2_clk", "cpu0_clk", "cpu1_clk", "cpu2_clk",
 				"cpu3_clk", "cpu4_clk", "cpu5_clk",
 				"cpu6_clk", "cpu7_clk";
-		clocks = <&clock_cpu clk_cci_clk>,
-			 <&clock_cpu clk_a53_bc_clk>,
-			 <&clock_cpu clk_a53_bc_clk>,
-			 <&clock_cpu clk_a53_bc_clk>,
-			 <&clock_cpu clk_a53_bc_clk>,
-			 <&clock_cpu clk_a53_lc_clk>,
-			 <&clock_cpu clk_a53_lc_clk>,
-			 <&clock_cpu clk_a53_lc_clk>,
-			 <&clock_cpu clk_a53_lc_clk>;
+		clocks = <&clock_cpu clk_a53ssmux_cci>,
+			 <&clock_cpu clk_a53ssmux_bc>,
+			 <&clock_cpu clk_a53ssmux_bc>,
+			 <&clock_cpu clk_a53ssmux_bc>,
+			 <&clock_cpu clk_a53ssmux_bc>,
+			 <&clock_cpu clk_a53ssmux_lc>,
+			 <&clock_cpu clk_a53ssmux_lc>,
+			 <&clock_cpu clk_a53ssmux_lc>,
+			 <&clock_cpu clk_a53ssmux_lc>;
 
 		qcom,governor-per-policy;
 
@@ -369,8 +390,13 @@
 		interrupts = <1 7 0xff00>;
 	};
 
+	qcom,msm-thermal {
+		qcom,core-control-mask = <0xFF>;
+		qcom,freq-mitigation-control-mask = <0xFF>;
+	};
+
 	jtag_fuse: jtagfuse@5e01c {
-		compatible = "qcom,jtag-fuse-v2";
+		compatible = "qcom,jtag-fuse";
 		reg = <0x5e01c 0x8>;
 		reg-names = "fuse-base";
 	};
@@ -477,15 +503,6 @@
 		clock-names = "core_clk", "core_a_clk";
 
 		qcom,coresight-jtagmm-cpu = <&CPU7>;
-	};
-
-	qcom,msm-thermal {
-		qcom,freq-control-list = <&CPU0 &CPU1 &CPU2 &CPU3
-					&CPU4 &CPU5 &CPU6 &CPU7>;
-		qcom,core-control-list = <&CPU0 &CPU1 &CPU2 &CPU3
-					&CPU4 &CPU5 &CPU6 &CPU7>;
-		qcom,freq-mitigation-control-list = <&CPU0 &CPU1 &CPU2 &CPU3
-						&CPU4 &CPU5 &CPU6 &CPU7>;
 	};
 };
 
