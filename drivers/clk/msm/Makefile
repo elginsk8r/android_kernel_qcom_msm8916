@@ -49,8 +49,8 @@ obj-$(CONFIG_ARCH_MSM8940)	+= clock-cpu-8939.o
 obj-$(CONFIG_ARCH_MSM8940)	+= clock-gcc-8952.o
 
 # MSM8952
-obj-$(CONFIG_ARCH_MSM8916)	+= clock-cpu-8939.o
-obj-$(CONFIG_ARCH_MSM8916)	+= clock-gcc-8952.o
+obj-$(CONFIG_ARCH_MSM8952)	+= clock-cpu-8939.o
+obj-$(CONFIG_ARCH_MSM8952)	+= clock-gcc-8952.o
 
 # MSM8953
 obj-$(CONFIG_ARCH_MSM8953)	+= clock-cpu-8953.o
